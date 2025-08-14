@@ -538,6 +538,12 @@
 	status = "okay";
 };
 
+&uart7 {
+	status = "okay";
+	pinctrl-names = "default";
+    pinctrl-0 = <&uart7m0_xfer &uart7m0_ctsn &uart7m0_rtsn>;
+};
+
 &i2c9 {
 	status = "okay";
 	pinctrl-0 = <&i2c9m1_xfer>;
@@ -608,7 +614,7 @@
 &i2c4 {
 	status = "okay";
 	pinctrl-names = "default";
-        pinctrl-0 = <&i2c4m0_xfer>;
+    pinctrl-0 = <&i2c4m0_xfer>;
 
 	es8388: es8388@11 {
 		status = "okay";
@@ -624,32 +630,10 @@
 	};
 };
 
-
-&i2c7 {
+&i2c5 {
 	status = "okay";
 	pinctrl-names = "default";
-	pinctrl-0 = <&i2c7m1_xfer>;
-
-
-	icm42607_acc: icm_acc@68 {
-		status = "okay";
-		compatible = "icm42607_acc";
-		reg = <0x68>;
-		irq-gpio = <&gpio1 RK_PD5 IRQ_TYPE_EDGE_RISING>;
-		irq_enable = <0>;
-		poll_delay_ms = <30>;
-		type = <SENSOR_TYPE_ACCEL>;
-		layout = <4>;
-	};
-
-	icm42607_gyro: icm_gyro@68 {
-		status = "okay";
-		compatible = "icm42607_gyro";
-		reg = <0x68>;
-		poll_delay_ms = <30>;
-		type = <SENSOR_TYPE_GYROSCOPE>;
-		layout = <4>;
-	};
+	pinctrl-0 = <&i2c5m3_xfer>;
 };
 
 &mdio0 {
@@ -722,22 +706,6 @@
 		};
 	};
 
-	wireless-bluetooth {
-		uart4_gpios: uart4-gpios {
-			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-		};
-	};
-
-	wireless-wlan {
-		wifi_host_wake_irq: wifi-host-wake-irq {
-			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_down>;
-		};
-
-		wifi_poweren_gpio: wifi-poweren-gpio {
-			rockchip,pins = <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
-		};
-	};
-	
 	hym8563 {
 		hym8563_int: hym8563-int {
 			rockchip,pins = <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_up>;
@@ -1017,16 +985,19 @@
 };
 
 &sdmmc {
-	max-frequency = <200000000>;
-	no-sdio;
-	no-mmc;
-	bus-width = <4>;
-	cap-mmc-highspeed;
-	cap-sd-highspeed;
-	disable-wp;
-	sd-uhs-sdr104;
-	vqmmc-supply = <&vccio_sd_s0>;
-	status = "okay";
+        max-frequency = <200000000>;
+        pinctrl-0 = <&sdmmc0_clk &sdmmc0_cmd &sdmmc0_det &sdmmc0_bus4>;
+        pinctrl-names = "default";
+        no-sdio;
+        no-mmc;
+        bus-width = <4>;
+        cap-mmc-highspeed;
+        cap-sd-highspeed;
+        disable-wp;
+        sd-uhs-sdr104;
+        vqmmc-supply = <&vccio_sd_s0>;
+        vmmc-supply = <&vcc_3v3_s0>;
+        status = "okay";
 };
 
 &tsadc {
@@ -1047,12 +1018,6 @@
 
 &u2phy1_otg {
 	status = "okay";
-};
-
-&uart4 {
-	status = "okay";
-	pinctrl-names = "default";
-	pinctrl-0 = <&uart4m1_xfer &uart4m1_ctsn>;
 };
 
 &ufs {
