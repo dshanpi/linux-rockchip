@@ -14,6 +14,7 @@
 #include <dt-bindings/pinctrl/rockchip.h>
 #include <dt-bindings/input/linux-event-codes.h>
 #include <dt-bindings/sensor-dev.h>
+#include "dt-bindings/usb/pd.h"
 #include "rk3568.dtsi"
 #include "rk3568-linux.dtsi"
 
@@ -399,7 +400,7 @@
 		clocks = <&rk809 1>;
 		clock-names = "ext_clock";
 		pinctrl-names = "default";
-		pinctrl-0 = <&wifi_enable_h>;
+		//pinctrl-0 = <&wifi_enable_h>;
 
 		/*
 		 * On the module itself this is one of these (depending
@@ -408,7 +409,7 @@
 		 * - PDN (power down when low)
 		 */
 		post-power-on-delay-ms = <200>;
-		reset-gpios = <&gpio3 RK_PD5 GPIO_ACTIVE_LOW>;
+		//reset-gpios = <&gpio3 RK_PD5 GPIO_ACTIVE_LOW>;
 	};
 
 	wireless_wlan: wireless-wlan {
@@ -792,10 +793,6 @@
 	};
 };
 
-&i2c1 {
-	status = "okay";
-};
-
 &i2c5 {
 	status = "okay";
 };
@@ -855,12 +852,6 @@
 		soc_slppin_rst: soc_slppin_rst {
 			rockchip,pins =
 				<0 RK_PA2 2 &pcfg_pull_none>;
-		};
-	};
-
-	sdio-pwrseq {
-		wifi_enable_h: wifi-enable-h {
-			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 
@@ -1021,12 +1012,6 @@
 	status = "okay";
 };
 
-&u2phy0_otg {
-	//vbus-supply = <&vcc5v0_otg>;
-	vbus-supply = <&fusb0>;	
-	status = "okay";
-};
-
 &u2phy1_host {
 	phy-supply = <&vcc5v0_host>;
 	status = "okay";
@@ -1058,12 +1043,6 @@
 };
 
 &usb_host1_ohci {
-	status = "okay";
-};
-
-&usbdrd_dwc3 {
-	dr_mode = "otg";
-	extcon = <&usb2phy0>;
 	status = "okay";
 };
 
@@ -1140,10 +1119,6 @@
 	status = "okay";
 };
 
-&vop {
-	disable-win-move;
-};
-
 &combphy0_us {
 	status = "okay";
 };
@@ -1188,7 +1163,7 @@
 	phy-mode = "rgmii";
 	clock_in_out = "input";
 
-	snps,reset-gpio = <&gpio2 RK_PD1 GPIO_ACTIVE_LOW>;
+	snps,reset-gpio = <&gpio0 RK_PC1 GPIO_ACTIVE_LOW>;
 	snps,reset-active-low;
 	/* Reset time is 20ms, 100ms for rtl8211f */
 	snps,reset-delays-us = <0 20000 100000>;
@@ -1211,10 +1186,6 @@
 	rx_delay = <0x29>;
 
 	phy-handle = <&rgmii_phy1>;
-	status = "okay";
-};
-
-&i2c4 {
 	status = "okay";
 };
 
@@ -1297,11 +1268,6 @@
 	extcon = <&fusb0>;
 };
 
-&usb2phy0 {
-		status = "okay";
-		extcon = <&fusb0>;
-};
-
 &u2phy0_otg {
 		/delete-property/ vbus-supply;
 		status = "okay";
@@ -1331,7 +1297,7 @@
 	handle_cpu_id = <1>;
 	remote_support_psci = <0>;
 	pinctrl-names = "default";
-	pinctrl-0 = <&pwm15m1_pins>;
+	pinctrl-0 = <&pwm15m0_pins>;
 
 	ir_key1 {
 		rockchip,usercode = <0x4040>;
