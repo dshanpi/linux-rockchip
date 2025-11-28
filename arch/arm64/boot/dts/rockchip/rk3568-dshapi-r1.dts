@@ -146,7 +146,7 @@
 
 	vcc_camera: vcc-camera-regulator {
 		compatible = "regulator-fixed";
-		gpio = <&gpio0 RK_PC1 GPIO_ACTIVE_HIGH>;
+		//gpio = <&gpio0 RK_PC1 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&camera_pwr>;
 		regulator-name = "vcc_camera";
