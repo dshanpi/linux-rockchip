@@ -943,7 +943,7 @@
 };
 
 &dsi_in_vp1 {
-	status = "okay";
+	status = "disabled";
 };
 
 &dsi_in_vp2 {
@@ -1247,11 +1247,11 @@
 };
 
 &dsi {
-	status = "okay";
+	status = "disabled";
 	rockchip,lane-rate = <480>;
 
 	dsi_panel: panel@0 {
-		status = "okay";
+		status = "disabled";
 		compatible = "simple-panel-dsi";
 		power-supply = <&vcc3v3_lcd_n>;
 		reg = <0>;
